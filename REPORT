@@ -1,95 +1,86 @@
 \documentclass[12pt, a4paper]{article}
 
-% --- Packages ---
+% --- REQUIRED PACKAGES ---
 \usepackage[utf8]{inputenc}
-\usepackage{geometry}       
-\geometry{margin=1in}
-\usepackage{amsmath}        % For formal business logic formulas
-\usepackage{amsfonts}
-\usepackage{booktabs}       % For professional-looking tables
-\usepackage{listings}       % For high-quality code embedding
-\usepackage{xcolor}         % For code color themes
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
 
-% --- Code Syntax Highlighting Theme ---
+\geometry{margin=1in}
+
+% --- CODE HIGHLIGHTING CONFIGURATION ---
 \definecolor{mGreen}{rgb}{0,0.6,0}
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
 \definecolor{mPurple}{rgb}{0.58,0,0.82}
-\definecolor{backgroundMesh}{rgb}{0.97,0.97,0.95}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
 
 \lstset{
-    backgroundcolor=\color{backgroundMesh},   
+    backgroundcolor=\color{backgroundColour},
     commentstyle=\color{mGreen},
-    keywordstyle=\color{blue}\bfseries,
+    keywordstyle=\color{magenta},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,         
+    basicstyle=\ttfamily\footnotesize,
     breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=4,
     language=C
 }
 
-% --- Begin Document ---
 \begin{document}
 
 % ==========================================
-%               TITLE PAGE 
+% TITLE PAGE
 % ==========================================
 \begin{titlepage}
     \centering
     \vspace*{1cm}
+    {\Large \textbf{KYAMBOGO UNIVERSITY}} \\[0.3cm]
+    {\large FACULTY OF ENGINEERING} \\[0.3cm]
+    {\large DEPARTMENT OF BIOMEDICAL AND MECHATRONICS ENGINEERING} \\[0.5cm]
+    {\large \textbf{BACHELOR’S OF ENGINEERING IN MECHATRONICS AND BIOMEDICAL ENGINEERING}} \\[1.5cm]
     
-    {\large \bfseries FACULTY OF ENGINEERING} \\[0.4cm]
-    {\large DEPARTMENT OF MECHATRONICS AND BIOMEDICAL ENGINEERING} \\[1.5cm]
+    {\Large \textbf{COMPUTING II}} \\[0.3cm]
+    {\large END OF SEMESTER 2 COURSEWORK AND PRESENTATION} \\[1.5cm]
     
-    {\Large \bfseries END OF SEMESTER 2 COURSEWORK AND PRESENTATION} \\[0.8cm]
-    \hrulespace
-    \vfill
+    \textbf{TITLE:} \\[0.2cm]
+    {\Large \textbf{Designing a Prepaid Water Credit System}} \\[2cm]
     
-    {\LARGE \bfseries Designing a Prepaid Water Credit System} \\[2cm]
-    
-    \vfill
-    
-    {\large \bfseries GROUP ONE EVENING:} \\[0.4cm]
-    \begin{tabular}{llc}
-        \textbf{Name} & \textbf{Registration Number} & \textbf{Signature} \\ \midrule
-        1. EPUWAT ELLY BENON &  25/U/BIE/18668/PE & \dots\dots\dots\dots \\ [0.2cm]
-        2. AMALI MAUREEN LYDIA &  25/U/BIE/05286/PE & \dots\dots\dots\dots \\ [0.2cm]
-        3. MUWONGE RONALD PAUL & 25/U/BIE/01401/PE & \dots\dots\dots\dots \\ [0.2cm]
-        4. DEMBE MARK &  25/U/BIE/01366/PE & \dots\dots\dots\dots \\ [0.2cm]
-        5. GIZAMBA JOEL &  25/U/BIE/01370/PE & \dots\dots\dots\dots \\
+    \begin{flushleft}
+    \textbf{BY: GROUP C (EVENING)} \\
+    \vspace*{0.3cm}
+    \begin{tabular}{ll}
+        EPUWAT ELLY BENON & 25/U/BIE/18668/PE \\
+        AMALI MAUREEN LYDIA & 25/U/BIE/05286/PE \\
+        MUWONGE RONALD PAUL & 25/U/BIE/01401/PE \\
+        DEMBE MARK & 25/U/BIE/01366/PE \\
+        GIZAMBA JOEL & 25/U/BIE/01370/PE \\
     \end{tabular}
-    
+    \end{flushleft}
     \vfill
-    \vfill
-    
-    {\large \bfseries Lecturer:} \\
-     Mr. OKELLO WAYNE STEVEN \\
-    
-    \vspace{1.5cm}
-    \textbf{Date:} \today
+    \begin{flushright}
+    \textbf{Lecturer:} Mr. OKELLO WAYNE STEVEN \\
+    \textbf{Date:} May 26, 2026
+    \end{flushright}
 \end{titlepage}
 
-\newpage
-\tableofcontents
-\newpage
+% ==========================================
+% AUTOMATIC TABLE OF CONTENTS PAGE
+% ==========================================
+\newpage                    % Ends the title page
+\tableofcontents            % Automatically generates the Table of Contents dynamically
+\thispagestyle{plain}       % Keeps standard page numbering layout for this specific page
+\newpage                    % Pushes subsequent document content onto the next page
 
 % ==========================================
-%             REPORT SECTIONS
+% DOCUMENT CONTENT
 % ==========================================
 
 \section{Introduction}
-The system is a program designed to manage utility consumption in this case water consumption for either domestic or commercial meters. The system is called "HAVEN PREPAID WATER SYSTEM". It enter the amount of money paid by a customer or user and calculates the number of units for the amount paid. The program features structured security via system token authentications, records management (that is; Create, Read, Update, Delete) for up to 50 distinct household records.
+The system is a program designed to manage utility consumption in this case water consumption for either domestic or commercial meters. The system is called ``HAVEN PREPAID WATER SYSTEM''. It enters the amount of money paid by a customer or user and calculates the number of units for the amount paid.
 
-\section{System Constants and conditions}
-The program required authentication and some fixed values for calculations for example;maintenance fee, charge for domestic meter and commercial meter and the alert safety limit. these values are listed below.
+\section{System Constants and Conditions}
+The program required authentication and some fixed values for calculations. These values of constants are listed below:
 \begin{itemize}
     \item \textbf{System Access PIN:} 4545
     \item \textbf{Fixed Maintenance Fee Deducted:} 500.0 UGX
@@ -98,20 +89,35 @@ The program required authentication and some fixed values for calculations for e
     \item \textbf{Leakage Alert Safety Limit:} 50.0 Units per day
 \end{itemize}
 
-\section{Declaration of functions}
+\section{Declaration of Functions}
+The dynamic prototype configurations include:
 \begin{itemize}
-    \item \texttt{int authenticate();} -- Validates user access by requesting for the system security PIN.
-    \item \texttt{void addHousehold();} -- Allocates storage and activates a new customer record profile.
-    \item \texttt{void searchHousehold();} -- Looks through the existing system registry to locate a targeted household profile.
-    \item \texttt{void updateHousehold();} -- Modifies parameters or utility variables within an existing record.
-    \item \texttt{void deleteHousehold();} -- Permanently removes a consumer record from the active memory of the program.
-    \item \texttt{void buyWaterCredit();} -- Evaluates transaction inputs, applies deductions, and prints tokenized units.
-    \item \texttt{void displaySummary();} -- Compiles and prints comprehensive billing and usage registries.
+   \item
+  int authenticate (); -- Validates user access by requesting for the
+  system security PIN.
+\item
+  void addHousehold (); -- Allocates storage and activates a new
+  customer record profile.
+\item
+  void searchHousehold (); -- Looks through the existing system registry
+  to locate a targeted household profile.
+\item
+  void updateHousehold (); -- Modifies parameters or utility variables
+  within an existing record.
+\item
+  void deleteHousehold (); -- Permanently removes a consumer record from
+  the active memory of the program.
+\item
+  void buyWaterCredit (); -- Evaluates transaction inputs, applies
+  deductions, and prints tokenized units.
+\item
+  void displaySummary (); -- Compiles and prints comprehensive billing
+  and usage registries.
 \end{itemize}
 
-\section{The use of structures.}
-Structure are basically used to store data. Unlike arrays structures store data in different data types and can store many streams of data for one structure. The structure configuration is shown below.
-\begin{verbatim}
+\section{The Use of Structures}
+Structures are basically used to store data. Unlike arrays structures store data in different data types.
+\begin{lstlisting}
 typedef struct {
     int id;
     char headName[50];
@@ -119,296 +125,124 @@ typedef struct {
     float balanceUnits;
     float dailyUsageUnits;
 } Household;
-\end{verbatim}
-
-\section{Mathematical Business Logic}
-The program works in a way that when a user or household owner makes a deposit(money),M, it deducts a maintenance fee,Fm of 500UGX and the balance(grossAmount),Mnet is used to calculate the units bought by dividing by the dynamicRate(for either domestic or commercial meter). The mathematical evaluation is modeled below:
-
-\subsection{Calculation of gross amount}
-Given a gross money $M$, the processing grossAmount $M_{net}$ is computed after a fixed maintenance fee ($F_m$) extraction:
-\begin{equation}
-M_{net} = M - F_m
-\end{equation}
-If $M \le F_m$, the operational routine flags an immediate structural evaluation error and terminates execution.
-
-\subsection{Calculating number of credit units}
-The final number of credit units ($\Delta U$) are scaled dynamically based on a string mapping logical condition checking account categories:
-\begin{equation}
-\Delta U = \frac{M_{net}}{\text{Tariff Rate}}
-\end{equation}
-Where:
-\begin{equation}
-\text{Tariff Rate} = 
-\begin{cases} 250.0 \text{ UGX}, & \text{if Type } = \text{"Commercial"} \\ 
-150.0 \text{ UGX}, & \text{if Type } = \text{"Domestic"} \end{cases}
-\end{equation}
-
-\section{Main requirements of the program.}
-\begin{itemize}
-    \item To receive household information and store it using structures.
-    \item To be able to edit, update and delete the household information.
-    \item To calculate the number of credit units depending on how much a user has input.
-    \item The program should print a receite after the calculation of the credit units showing the units purchased and the balance of units.
-    \item It should be able to print the summary of records of households stored in the system showing all their details including credit units and balance.
-    \item The program should be able to detect leackage and low credit balance and display an appropriate error or warning message.
-\end{itemize}
-
-\newpage
-\section{Source Code Implementation}
-The program runs on  C program implementing majority of the functions and C programing features including libraries like the stundard input output library,stdio.h  and the string llibrary, string.h . Other features used were structures ,loops, the if conditions, whiles and do-while among others.
-\begin{lstlisting}[caption={Haven Prepaid Water System - Source Implementation}]
-#include <stdio.h>
-#include <string.h>
-
-#define MAX_HOUSEHOLDS 50
-#define AUTH_PIN "4545"        // System access PIN for authentication
-#define MAINTENANCE_FEE 500.0  // Fixed maintenance fee
-#define DOMESTIC_RATE 150.0    // Cost per unit for Domestic
-#define COMMERCIAL_RATE 250.0  // Cost per unit for Commercial
-#define LOW_CREDIT_LIMIT 5.0   // Low credit threshold in units
-#define LEAKAGE_LIMIT 50.0     // Unusual high daily usage threshold
-
-// Structure to hold household records
-typedef struct {
-    int id;
-    char headName[50];
-    char type[15]; // "Domestic" or "Commercial"
-    float balanceUnits;
-    float dailyUsageUnits;
-} Household;
-
-// Global variables
-Household records[MAX_HOUSEHOLDS];
-int householdCount = 0;
-
-// Function Prototypes
-int authenticate();
-void menu();
-void addHousehold();
-void searchHousehold();
-void updateHousehold();
-void deleteHousehold();
-void buyWaterCredit();
-void displaySummary();
-
-int main() {
-    printf("=== HAVEN PREPAID WATER SYSTEM ===\n");
-    if (!authenticate()) {
-        printf("Authentication failed! Exiting system.\n");
-        return 0;
-    }
-    
-    // Seed sample data for easy testing
-    records[0] = (Household){101, "Mark Dembe", "Domestic", 12.5, 8.0};
-    records[1] = (Household){102, "Prosper Ltd", "Commercial", 3679.0, 55.0};
-    householdCount = 2;
-
-    menu();
-    return 0;
-}
-
-// Simple authentication rule integration
-int authenticate() {
-    char pin[10];
-    printf("Enter System Access PIN: ");
-    scanf("%s", pin);
-    if (strcmp(pin, AUTH_PIN) == 0) return 1;
-    return 0;
-}
-
-// Main operational loop 
-void menu() {
-    int choice;
-    do {
-        printf("\n************************************\n");
-        printf("              MAIN MENU            \n");
-        printf("************************************\n");
-        printf("1. Register New Household\n");
-        printf("2. Search Household Record\n");
-        printf("3. Update Household Details\n");
-        printf("4. Delete Household Record\n");
-        printf("5. Buy Water Credit (Token)\n");
-        printf("6. Check for the summary of records\n");
-        printf("7. Exit System\n");
-        printf("Enter choice (1-7): ");
-        scanf("%d", &choice);
-
-        switch(choice) {
-            case 1: addHousehold(); break;
-            case 2: searchHousehold(); break;
-            case 3: updateHousehold(); break;
-            case 4: deleteHousehold(); break;
-            case 5: buyWaterCredit(); break;
-            case 6: displaySummary(); break;
-            case 7: printf("\nThanks for using Haven Systems!\n"); break;
-            default: printf("Invalid option! Please try again.\n");
-        }
-    } while(choice != 7);
-}
-
-// 1. Create Operation
-void addHousehold() {
-    if (householdCount >= MAX_HOUSEHOLDS) {
-        printf("Database full! Cannot register more households.\n");
-        return;
-    }
-    Household h;
-    printf("\nEnter Unique Household ID (Integer): ");
-    scanf("%d", &h.id);
-    
-    // Check if ID already exists
-    for(int i=0; i<householdCount; i++) {
-        if(records[i].id == h.id) {
-            printf("Error: A household with ID %d already exists.\n", h.id);
-            return;
-        }
-    }
-
-    printf("Enter Househead Name: ");
-    scanf(" %[^\n]s", h.headName);
-    
-    int typeChoice;
-    printf("Select Type (1. Domestic, 2. Commercial): ");
-    scanf("%d", &typeChoice);
-    if(typeChoice == 2) strcpy(h.type, "Commercial");
-    else strcpy(h.type, "Domestic");
-
-    h.balanceUnits = 0.0; // Initial balance starts at 0
-    h.dailyUsageUnits = 0.0;
-
-    records[householdCount++] = h;
-    printf("Household registered successfully!\n");
-}
-
-// 2. Read / Search Operation
-void searchHousehold() {
-    int id, found = 0;
-    printf("\nEnter Household ID to search: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < householdCount; i++) {
-        if (records[i].id == id) {
-            printf("\n--- Record Found ---\n");
-            printf("ID: %d\nName: %s\nType: %s\nBalance Units: %.2f\nDaily Usage: %.2f units\n", 
-                   records[i].id, records[i].headName, records[i].type, records[i].balanceUnits, records[i].dailyUsageUnits);
-            
-            // Warnings logic processing
-            if(records[i].balanceUnits < LOW_CREDIT_LIMIT) {
-                printf("[WARNING]: Low water credit! Please top up soon.\n");
-            }
-            if(records[i].dailyUsageUnits > LEAKAGE_LIMIT) {
-                printf("[CRITICAL ALERT]: High daily usage detected! Possible water leakage.\n");
-            }
-            found = 1;
-            break;
-        }
-    }
-    if (!found) printf("Household record not found.\n");
-}
-
-// 3. Update Operation
-void updateHousehold() {
-    int id, found = 0;
-    printf("\nEnter Household ID to update: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < householdCount; i++) {
-        if (records[i].id == id) {
-            printf("Enter New Name for Househead: ");
-            scanf(" %[^\n]s", records[i].headName);
-            printf("Enter Current Daily Water Usage (units): ");
-            scanf("%f", &records[i].dailyUsageUnits);
-            printf("Record updated successfully!\n");
-            found = 1;
-            break;
-        }
-    }
-    if (!found) printf("Record not found.\n");
-}
-
-// 4. Delete Operation
-void deleteHousehold() {
-    int id, found = 0;
-    printf("\nEnter Household ID to delete: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < householdCount; i++) {
-        if (records[i].id == id) {
-            found = 1;
-            for (int j = i; j < householdCount - 1; j++) {
-                records[j] = records[j + 1];
-            }
-            householdCount--;
-            printf("Household record deleted successfully!\n");
-            break;
-        }
-    }
-    if (!found) printf("Record not found.\n");
-}
-
-// 5. Core Utility Rule Business Logic Processing
-void buyWaterCredit() {
-    int id, found = 0;
-    float money, dynamicRate, grossAmount, unitsBought;
-    
-    printf("\nEnter Household ID for token purchase: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < householdCount; i++) {
-        if (records[i].id == id) {
-            found = 1;
-            printf("Enter amount of money to deposit (UGX): ");
-            scanf("%f", &money);
-
-            // Validation Rule: Check if money can cover the maintenance fee
-            if (money <= MAINTENANCE_FEE) {
-                printf("[ERROR]: Amount entered is too low to process after a maintenance deduction of %.0f UGX.\n", MAINTENANCE_FEE);
-                return;
-            }
-
-            grossAmount = money - MAINTENANCE_FEE;
-            
-            // Tiered pricing rate application
-            if (strcmp(records[i].type, "Commercial") == 0) {
-                dynamicRate = COMMERCIAL_RATE;
-            } else {
-                dynamicRate = DOMESTIC_RATE;
-            }
-
-            unitsBought = grossAmount / dynamicRate;
-            records[i].balanceUnits += unitsBought;
-
-            // Purchase Summary Printout Requirement
-            printf("\n******* WATER CREDIT RECEIPT ********\n");
-            printf("Household ID:   %d\n", records[i].id);
-            printf("Amount Paid:    %.2f UGX\n", money);
-            printf("Maintenance Fee:%.2f UGX\n", MAINTENANCE_FEE);
-            printf("Rate per Unit:  %.2f UGX\n", dynamicRate);
-            printf("Units Bought:   %.2f units\n", unitsBought);
-            printf("Updated Balance:%.2f units\n", records[i].balanceUnits);
-            printf("**************************************\n");
-            break;
-        }
-    }
-    if (!found) printf("Household record not found.\n");
-}
-
-// 6. Report Generator View
-void displaySummary() {
-    printf("\n*********************************************************\n");
-    printf("             ALL HOUSEHOLD WATER LOG RECORDS             \n");
-    printf("***********************************************************\n");
-    printf("%-6s | %-15s | %-12s | %-10s | %-10s\n", "ID", "Househead", "Type", "Balance", "Daily Use");
-    printf("---------------------------------------------------------\n");
-    for (int i = 0; i < householdCount; i++) {
-        printf("%-6d | %-15s | %-12s | %-10.2f | %-10.2f\n", 
-               records[i].id, records[i].headName, records[i].type, records[i].balanceUnits, records[i].dailyUsageUnits);
-    }
-    printf("***********************************************************\n");
-}
 \end{lstlisting}
 
+\section{Mathematical Business Logic}
+The program works in a way that when a user or household owner makes a
+deposit(money), M, it deducts a maintenance fee, Fm of 500UGX and the
+balance(grossAmount), Mnet is used to calculate the units bought by
+dividing by the dynamicRate (for either domestic or commercial meter).
+The mathematical evaluation is modeled below:
+
+\subsection{Calculation of Gross Amount}
+\begin{quote}
+Given a gross money M, the processing grossAmount Mnet is computed after
+a fixed maintenance fee (Fm) extraction:
+If M less than Fm, the operational routine flags an immediate structural
+evaluation error and terminates execution.
+\end{quote}
+$$M_{\text{net}} = M - F_m$$
+
+\subsection{Calculating Number of Credit Units}
+\begin{quote}
+The final number of credit units (U) are scaled dynamically based on a
+string mapping logical condition checking account categories:
+Where: Dynamicrate = 250.0 UGX, if Type ='' Commercial''
+
+150.0 UGX, if Type ='' Domestic''
+\end{quote}
+$$\Delta U = \frac{M_{\text{net}}}{\text{DynamicRate}}$$
+
+\section{General operation of the program}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+
+
+\item
+  \textbf{All-in-One Variable}: We created a custom struct to tie a
+  user\textquotesingle s ID, Name, Account Type, Balance, and Usage
+  together.
+\item
+  \textbf{Account Type Flag}: A simple number identifies whether the
+  user is Domestic or Commercial.
+\item
+  \textbf{Login Gatekeeper:} A basic login function checks the user
+  before showing the main menu.
+\item
+  \textbf{Master PIN:} The system is protected by a simple access pin.
+\item
+  \textbf{Pass or Fail:} If the password is right, it returns 1 to
+  unlock the app; otherwise, it closes down.
+\item
+  \textbf{Continuous Loop:} The program keeps running inside a loop so
+  the admin can do multiple tasks without restarting.
+\item
+  \textbf{Menu Routing:} A switch-case block takes the
+  user\textquotesingle s choice (1 to 7) and jumps directly to that
+  specific task.
+\item
+  \textbf{Wrong Input Guard}: If someone types a wrong number or letter,
+  the program catches it and asks them to try again.
+\item
+  \textbf{Registering Users}: Before adding a new household, the code
+  checks if the list is full or if the ID already exists.
+\item
+  \textbf{Searching by ID}: A basic for loop goes through the list one
+  by one to find the matching ID.
+\item
+  \textbf{Not Found Warning:} If the loop finishes and finds nothing, it
+  safely tells the admin the record doesn\textquotesingle t exist.
+\item
+  \textbf{Editing Info:} Once an ID is matched, the admin can directly
+  type over the old name or update the daily water usage\textbf{.}
+\item
+  \textbf{Deleting a Record:} To remove someone, the program locates
+  their spot and slides all the remaining names up by one index to fill
+  the gap.
+\item
+  \textbf{Updating the Count:} The system automatically lowers the total
+  user count so it doesn\textquotesingle t leave blank spaces in the
+  memory.
+
+\end{enumerate}
+\section{Main Requirements of the Program}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  To receive household information and store it using structures.
+\item
+  To be able to edit, update and delete the household information.
+\item
+  To calculate the number of credit units depending on how much a user
+  has input.
+\item
+  The program should print a receipt after the calculation of the credit
+  units showing the units purchased and the balance of units.
+\item
+  It should be able to print the summary of records of households stored
+  in the system showing all their details including credit units and
+  balance.
+\item
+  The program should be able to detect leakage and low credit balance
+  and display an appropriate error or warning message.
+\end{enumerate}
+
 \section{Conclusion}
-The application of code and the use of c programming provided and efficient tool to automate the calculation of water utility consumption.By replacing manual billing methods, the software minimizes human error and significantly speeds up data processing.The system also prints and displays precise and summarized data from transactions like receipts and summary tables of stored information. The program also has room for further modification and improvement into better versions and could also be modified for other operations and systems i the future.
+The application of code and the use of c programming provided an
+efficient tool to
+
+Automate the calculation of water utility consumption. By replacing
+manual billing methods, the software minimizes human error and
+significantly speeds up data processing. The system also prints and
+displays precise and summarized data from transactions like receipts and
+summary tables of stored information. The program also has room for
+further
+
+Modification and improvement into better versions and could also be
+modified for other
+
+Operations and systems in the future besides billing systems.
 
 \end{document}
