@@ -21,6 +21,6 @@ The **HAVEN PREPAID WATER SYSTEM** is a console-based C application designed to 
 
 ---
 
-## Built By
-* **Group One (Evening)**
+#  By
+* **Group C (Evening)**
 * Project Presentation — 2026
