@@ -1,0 +1,249 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_HOUSEHOLDS 50
+#define AUTH_PIN "4545"        // System access PIN for authentication
+#define MAINTENANCE_FEE 500.0  // Fixed maintenance fee
+#define DOMESTIC_RATE 150.0    // Cost per unit for Domestic
+#define COMMERCIAL_RATE 250.0  // Cost per unit for Commercial
+#define LOW_CREDIT_LIMIT 5.0   // Low credit threshold in units
+#define LEAKAGE_LIMIT 50.0     // Unusual high daily usage threshold
+
+// Structure to hold household records
+typedef struct {
+    int id;
+    char headName[50];
+    char type[15]; // "Domestic" or "Commercial"
+    float balanceUnits;
+    float dailyUsageUnits;
+} Household;
+
+// Global variables
+Household records[MAX_HOUSEHOLDS];
+int householdCount = 0;
+
+// Function Prototypes
+int authenticate();
+void menu();
+void addHousehold();
+void searchHousehold();
+void updateHousehold();
+void deleteHousehold();
+void buyWaterCredit();
+void displaySummary();
+
+int main() {
+    printf("=== HAVEN PREPAID WATER SYSTEM ===\n");
+    if (!authenticate()) {
+        printf("Authentication failed! Exiting system.\n");
+        return 0;
+    }
+    
+    // Seed sample data for easy testing
+    records[0] = (Household){101, "Mark Dembe", "Domestic", 12.5, 8.0};
+    records[1] = (Household){102, "Prosper Ltd", "Commercial", 3679.0, 55.0};
+    householdCount = 2;
+
+    menu();
+    return 0;
+}
+
+// Simple authentication rule integration
+int authenticate() {
+    char pin[10];
+    printf("Enter System Access PIN: ");
+    scanf("%s", pin);
+    if (strcmp(pin, AUTH_PIN) == 0) return 1;
+    return 0;
+}
+
+// Main operational loop 
+void menu() {
+    int choice;
+    do {
+        printf("\n************************************\n");
+        printf("              MAIN MENU            \n");
+        printf("************************************\n");
+        printf("1. Register New Household\n");
+        printf("2. Search Household Record\n");
+        printf("3. Update Household Details\n");
+        printf("4. Delete Household Record\n");
+        printf("5. Buy Water Credit (Token)\n");
+        printf("6. Check for the summary of records\n");
+        printf("7. Exit System\n");
+        printf("Enter choice (1-7): ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1: addHousehold(); break;
+            case 2: searchHousehold(); break;
+            case 3: updateHousehold(); break;
+            case 4: deleteHousehold(); break;
+            case 5: buyWaterCredit(); break;
+            case 6: displaySummary(); break;
+            case 7: printf("\nThanks for using Haven Systems!\n"); break;
+            default: printf("Invalid option! Please try again.\n");
+        }
+    } while(choice != 7);
+}
+
+// 1. Create Operation
+void addHousehold() {
+    if (householdCount >= MAX_HOUSEHOLDS) {
+        printf("Database full! Cannot register more households.\n");
+        return;
+    }
+    Household h;
+    printf("\nEnter Unique Household ID (Integer): ");
+    scanf("%d", &h.id);
+    
+    // Check if ID already exists
+    for(int i=0; i<householdCount; i++) {
+        if(records[i].id == h.id) {
+            printf("Error: A household with ID %d already exists.\n", h.id);
+            return;
+        }
+    }
+
+    printf("Enter Househead Name: ");
+    scanf(" %[^\n]s", h.headName);
+    
+    int typeChoice;
+    printf("Select Type (1. Domestic, 2. Commercial): ");
+    scanf("%d", &typeChoice);
+    if(typeChoice == 2) strcpy(h.type, "Commercial");
+    else strcpy(h.type, "Domestic");
+
+    h.balanceUnits = 0.0; // Initial balance starts at 0
+    h.dailyUsageUnits = 0.0;
+
+    records[householdCount++] = h;
+    printf("Household registered successfully!\n");
+}
+
+// 2. Read / Search Operation
+void searchHousehold() {
+    int id, found = 0;
+    printf("\nEnter Household ID to search: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < householdCount; i++) {
+        if (records[i].id == id) {
+            printf("\n--- Record Found ---\n");
+            printf("ID: %d\nName: %s\nType: %s\nBalance Units: %.2f\nDaily Usage: %.2f units\n", 
+                   records[i].id, records[i].headName, records[i].type, records[i].balanceUnits, records[i].dailyUsageUnits);
+            
+            // Warnings logic processing
+            if(records[i].balanceUnits < LOW_CREDIT_LIMIT) {
+                printf("[WARNING]: Low water credit! Please top up soon.\n");
+            }
+            if(records[i].dailyUsageUnits > LEAKAGE_LIMIT) {
+                printf("[CRITICAL ALERT]: High daily usage detected! Possible water leakage.\n");
+            }
+            found = 1;
+            break;
+        }
+    }
+    if (!found) printf("Household record not found.\n");
+}
+
+// 3. Update Operation
+void updateHousehold() {
+    int id, found = 0;
+    printf("\nEnter Household ID to update: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < householdCount; i++) {
+        if (records[i].id == id) {
+            printf("Enter New Name for Househead: ");
+            scanf(" %[^\n]s", records[i].headName);
+            printf("Enter Current Daily Water Usage (units): ");
+            scanf("%f", &records[i].dailyUsageUnits);
+            printf("Record updated successfully!\n");
+            found = 1;
+            break;
+        }
+    }
+    if (!found) printf("Record not found.\n");
+}
+
+// 4. Delete Operation
+void deleteHousehold() {
+    int id, found = 0;
+    printf("\nEnter Household ID to delete: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < householdCount; i++) {
+        if (records[i].id == id) {
+            found = 1;
+            for (int j = i; j < householdCount - 1; j++) {
+                records[j] = records[j + 1];
+            }
+            householdCount--;
+            printf("Household record deleted successfully!\n");
+            break;
+        }
+    }
+    if (!found) printf("Record not found.\n");
+}
+
+// 5. Core Utility Rule Business Logic Processing
+void buyWaterCredit() {
+    int id, found = 0;
+    float money, dynamicRate, grossAmount, unitsBought;
+    
+    printf("\nEnter Household ID for token purchase: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < householdCount; i++) {
+        if (records[i].id == id) {
+            found = 1;
+            printf("Enter amount of money to deposit (UGX): ");
+            scanf("%f", &money);
+
+            // Validation Rule: Check if money can cover the maintenance fee
+            if (money <= MAINTENANCE_FEE) {
+                printf("[ERROR]: Amount entered is too low to process after a maintenance deduction of %.0f UGX.\n", MAINTENANCE_FEE);
+                return;
+            }
+
+            grossAmount = money - MAINTENANCE_FEE;
+            
+            // Tiered pricing rate application
+            if (strcmp(records[i].type, "Commercial") == 0) {
+                dynamicRate = COMMERCIAL_RATE;
+            } else {
+                dynamicRate = DOMESTIC_RATE;
+            }
+
+            unitsBought = grossAmount / dynamicRate;
+            records[i].balanceUnits += unitsBought;
+
+            // Purchase Summary Printout Requirement
+            printf("\n******** WATER CREDIT RECEIPT ********\n");
+            printf("Household ID:   %d\n", records[i].id);
+            printf("Amount Paid:    %.2f UGX\n", money);
+            printf("Maintenance Fee:%.2f UGX\n", MAINTENANCE_FEE);
+            printf("Rate per Unit:  %.2f UGX\n", dynamicRate);
+            printf("Units Bought:   %.2f units\n", unitsBought);
+            printf("Updated Balance:%.2f units\n", records[i].balanceUnits);
+            printf("************************************************\n");
+            break;
+        }
+    }
+    if (!found) printf("Household record not found.\n");
+}
+
+// 6. Report Generator View
+void displaySummary() {
+    printf("\n**********************************************************\n");
+    printf("             ALL HOUSEHOLD WATER LOG RECORDS             \n");
+    printf("*********************************************************\n");
+    printf("%-6s | %-15s | %-12s | %-10s | %-10s\n", "ID", "Househead", "Type", "Balance", "Daily Use");
+    printf("---------------------------------------------------------\n");
+    for (int i = 0; i < householdCount; i++) {
+        printf("%-6d | %-15s | %-12s | %-10.2f | %-10.2f\n", 
+               records[i].id, records[i].headName, records[i].type, records[i].balanceUnits, records[i].dailyUsageUnits);
+    }
+    printf("************************************************************\n");
+}
