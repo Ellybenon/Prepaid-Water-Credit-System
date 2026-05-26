@@ -17,7 +17,7 @@ The **HAVEN PREPAID WATER SYSTEM** is a console-based C application designed to 
 ## File Structure in this Repository
 * **`SOURCE CODE`**: Contains the complete, modular C programming source code.
 * **`COMPUTING REPORT.pdf`**: The detailed technical documentation and project report.
-* **`Prepaid water credit system.slides.pdf`**: The official 9-slide project presentation deck.
+* **`Prepaid water credit system.slides.pdf`**: The 10 slide project presentation deck.
 
 ---
 
